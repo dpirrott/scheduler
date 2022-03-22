@@ -8,8 +8,8 @@ export default function DayList(props) {
         <DayListItem
           key={day.id}
           name={day.name}
-          selected={day.name === props.day}
-          setDay={props.setDay}
+          selected={day.name === props.value}
+          setDay={props.onChange}
         />
       );
     });
