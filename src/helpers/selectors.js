@@ -15,3 +15,15 @@ export function getAppointmentsForDay(state, day) {
     return false;
   });
 }
+
+export function getInterview(state, interview) {
+  if (!interview) {
+    return null;
+  }
+  const interviewerID = interview.interviewer;
+  const student = interview.student;
+  return {
+    student,
+    interviewer: state.interviewers[interviewerID],
+  };
+}
