@@ -4,7 +4,7 @@ import Header from './Header';
 import Show from './Show';
 import Empty from './Empty';
 
-export default function Appointment({ time, id, interview }) {
+export default function Appointment({ time, interview }) {
   return (
     <article className="appointment">
       <Header time={time} />
