@@ -11,10 +11,8 @@ export default function useVisualMode(initial) {
 
   const back = () => {
     if (history.length > 1) {
-      const rmHistory = history;
-      rmHistory.pop();
-      setHistory(rmHistory);
-      setMode(rmHistory[rmHistory.length - 1]);
+      setHistory([...history.slice(0, -1)]);
+      setMode(history[history.length - 2]);
     }
   };
 
