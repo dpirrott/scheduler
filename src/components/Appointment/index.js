@@ -40,10 +40,6 @@ export default function Appointment({
     cancelInterview(id).then(() => transition(EMPTY));
   };
 
-  const confirm = (id) => {
-    transition(CONFIRM);
-  };
-
   return (
     <article className="appointment">
       <Header time={time} />
@@ -52,7 +48,7 @@ export default function Appointment({
         <Show
           student={interview.student}
           interviewer={interview.interviewer}
-          onDelete={() => cancel(id)}
+          onDelete={() => transition(CONFIRM)}
         />
       )}
       {mode === CREATE && (
@@ -63,7 +59,12 @@ export default function Appointment({
         />
       )}
       {mode === SAVING && <Status message="Saving..." />}
-      {mode === CONFIRM && <Confirm />}
+      {mode === CONFIRM && (
+        <Confirm
+          onCancel={() => transition(SHOW)}
+          onConfirm={() => cancel(id)}
+        />
+      )}
       {mode === DELETING && <Status message="Deleting..." />}
     </article>
   );
