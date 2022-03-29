@@ -72,7 +72,7 @@ export default function Appointment({
           student={interview.student}
           interviewer={interview.interviewer.id}
           interviewers={interviewers}
-          onCancel={() => transition(SHOW)}
+          onCancel={() => back()}
           onSave={save}
         />
       )}
