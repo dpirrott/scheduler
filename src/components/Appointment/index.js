@@ -42,9 +42,9 @@ export default function Appointment({
   };
 
   const cancel = (id) => {
-    transition(DELETING);
+    transition(DELETING, true);
     cancelInterview(id)
-      .then(() => transition(EMPTY, true))
+      .then(() => transition(EMPTY))
       .catch(() => transition(ERROR_DELETE, true));
   };
 
