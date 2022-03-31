@@ -38,11 +38,11 @@ export default function Appointment({
     transition(SAVING);
     bookInterview(id, interview)
       .then(() => transition(SHOW))
-      .catch(() => transition(ERROR_SAVE, true));
+      .catch(() => transition(ERROR_SAVE));
   };
 
   const cancel = (id) => {
-    transition(DELETING, true);
+    transition(DELETING);
     cancelInterview(id)
       .then(() => transition(EMPTY))
       .catch(() => transition(ERROR_DELETE, true));
@@ -84,7 +84,7 @@ export default function Appointment({
         <Confirm
           onCancel={() => transition(SHOW)}
           onConfirm={() => cancel(id)}
-          message="Are you sure you want to delete this appointment."
+          message="Are you sure you want to delete this interview?"
         />
       )}
       {mode === DELETING && <Status message="Deleting..." />}
