@@ -84,6 +84,7 @@ export default function Appointment({
         <Confirm
           onCancel={() => transition(SHOW)}
           onConfirm={() => cancel(id)}
+          message="Are you sure you want to delete this appointment."
         />
       )}
       {mode === DELETING && <Status message="Deleting..." />}
