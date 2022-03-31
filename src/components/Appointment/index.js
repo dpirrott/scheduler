@@ -10,6 +10,7 @@ import Error from './Error';
 
 import useVisualMode from 'hooks/useVisualMode';
 
+// Various display modes for the appointment component
 const EMPTY = 'EMPTY';
 const SHOW = 'SHOW';
 const CREATE = 'CREATE';
@@ -28,8 +29,23 @@ export default function Appointment({
   bookInterview,
   cancelInterview,
 }) {
+  /**
+   * Destructure state handler for appointment display modes.
+   *
+   * 'transition' - Function to set next state
+   * 'back' - Function to go to previous state
+   * 'mode' - Current display state
+   */
   const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
 
+  /**
+   * Book interview with users form inputted data.
+   * Initiate saving transition while bookInterview is
+   * working on submitting data to server.
+   *
+   * @param {String} name
+   * @param {Number} interviewer
+   */
   const save = (name, interviewer) => {
     const interview = {
       student: name,
@@ -41,7 +57,14 @@ export default function Appointment({
       .catch(() => transition(ERROR_SAVE));
   };
 
-  const cancel = (id) => {
+  /**
+   * Delete previously booked interview.
+   * User has already confirmed deletion prior to this function
+   * being called.
+   * A deleting status icon will show while cancelInterview
+   * works on removing the current appointment from the server.
+   */
+  const cancel = () => {
     transition(DELETING);
     cancelInterview(id)
       .then(() => transition(EMPTY))
@@ -83,7 +106,7 @@ export default function Appointment({
       {mode === CONFIRM && (
         <Confirm
           onCancel={() => transition(SHOW)}
-          onConfirm={() => cancel(id)}
+          onConfirm={() => cancel()}
           message="Are you sure you want to delete this interview?"
         />
       )}

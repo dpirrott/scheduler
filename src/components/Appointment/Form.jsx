@@ -8,23 +8,33 @@ export default function Form(props) {
   const [error, setError] = useState('');
   const { onSave, onCancel, interviewers } = props;
 
+  /**
+   * Either clears form data or restores it to it's previous state
+   */
   const reset = () => {
     setStudent(props.student || '');
     setInterviewer(props.interviewer || null);
     setError('');
   };
 
+  /**
+   * Reset all states then revert to previous visual mode
+   */
   const cancel = () => {
     reset();
     onCancel();
   };
 
+  /**
+   * Checks if student name field is blank prior to submitting.
+   * If blank, trigger error state and cancel the save operation.
+   * Otherwise submit student name and interviewer ID for saving.
+   */
   const validate = () => {
     if (student === '') {
       setError('Student name cannot be blank');
       return;
     }
-
     onSave(student, interviewer);
     setError('');
   };

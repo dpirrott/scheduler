@@ -12,6 +12,10 @@ export default function useApplicationData() {
 
   const setDay = (day) => setState({ ...state, day });
 
+  /**
+   * Retrieve api information from 3 separate routes using axios.get().
+   * Store all the data in the custom hook setState.
+   */
   useEffect(() => {
     Promise.all([
       axios.get('/api/days'),
@@ -27,6 +31,15 @@ export default function useApplicationData() {
     });
   }, []);
 
+  /**
+   * Used when creating/updating appointment.
+   * Updates the appointments state within setState,
+   * as well as the days component after running updateSpots.
+   *
+   * @param {Number} id
+   * @param {Object} interview
+   * @returns {promise}
+   */
   const bookInterview = (id, interview) => {
     const appointment = {
       ...state.appointments[id],
@@ -42,6 +55,15 @@ export default function useApplicationData() {
     });
   };
 
+  /**
+   * Used when deleting/cancelling an appointment.
+   * Similar to bookInterview in that appointments and
+   * days are updated within setState.
+   * Days is updated based on the updateSpots function.
+   *
+   * @param {Number} id
+   * @returns {promise}
+   */
   const cancelInterview = (id) => {
     const appointment = {
       ...state.appointments[id],
@@ -57,6 +79,20 @@ export default function useApplicationData() {
     });
   };
 
+  /**
+   * Updates the spots remaining for each day of the week.
+   * Efficiency can be improved by targetting a specific day,
+   * rather then updating every day.
+   *
+   * Efficiency didn't seem important considering there's only
+   * 25 possible appointments in this project, if there were millions,
+   * improvements would be required.
+   *
+   * @param {Object} state
+   * @param {Object} appointments
+   * @param {Number} id
+   * @returns {Array}
+   */
   const updateSpots = (state, appointments, id) => {
     const days = [];
     for (const day of state.days) {
