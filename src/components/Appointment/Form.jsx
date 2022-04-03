@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
-import InterviewerList from 'components/InterviewerList';
-import Button from 'components/Button';
+import React, { useState } from "react";
+import InterviewerList from "components/InterviewerList";
+import Button from "components/Button";
 
 export default function Form(props) {
-  const [student, setStudent] = useState(props.student || '');
+  const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const { onSave, onCancel, interviewers } = props;
 
   /**
    * Either clears form data or restores it to it's previous state
    */
   const reset = () => {
-    setStudent(props.student || '');
+    setStudent(props.student || "");
     setInterviewer(props.interviewer || null);
-    setError('');
+    setError("");
   };
 
   /**
@@ -31,12 +31,16 @@ export default function Form(props) {
    * Otherwise submit student name and interviewer ID for saving.
    */
   const validate = () => {
-    if (student === '') {
-      setError('Student name cannot be blank');
+    if (student === "") {
+      setError("Student name cannot be blank");
+      return;
+    }
+    if (!interviewer) {
+      setError("Interviewer must be selected");
       return;
     }
     onSave(student, interviewer);
-    setError('');
+    setError("");
   };
 
   return (
@@ -65,7 +69,7 @@ export default function Form(props) {
           <Button onClick={cancel} danger>
             Cancel
           </Button>
-          <Button onClick={() => validate(student, interviewer)} confirm>
+          <Button onClick={() => validate()} confirm>
             Save
           </Button>
         </section>
